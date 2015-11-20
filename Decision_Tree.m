@@ -1,21 +1,23 @@
+% suppose we have 4 features
 % OutlookType=struct('Sunny',1,'Rainy',2,'Overcast',3);  
 % TemperatureType=struct('hot',1,'warm',2,'cool',3);  
 % HumidityType=struct('high',1,'norm',2);  
-% WindyType={'True',1,'False',0};  
+% WindyType={'True',1,'False',0}; 
+% The goal is to predict whether we can play golf
 % PlayGolf={'Yes',1,'No',0};  
 % data=struct('Outlook',[],'Temperature',[],'Humidity',[],'Windy',[],'PlayGolf',[]);  
 function [decisionTreeModel]=applyDecisionTree()
 
-Outlook=[1,1,3,2,2,2,3,1,1,2,1,3,3,2]';   
-Temperature=[1,1,1,2,3,3,3,2,3,3,2,2,1,2]';  
-Humidity=[1,1,1,1,2,2,2,1,2,2,2,1,2,1]';  
-Windy=[0,1,0,0,0,1,1,0,0,0,1,1,0,1]';  
-  
-data=[Outlook Temperature Humidity Windy];  
-PlayGolf=[0,0,1,1,1,0,1,0,1,1,1,1,1,0]';  
-propertyName={'Outlook','Temperature','Humidity','Windy'};  
-delta=0.1;  
-decisionTreeModel=decisionTree(data,PlayGolf,propertyName,delta);  
+  Outlook=[1,1,3,2,2,2,3,1,1,2,1,3,3,2]';   
+  Temperature=[1,1,1,2,3,3,3,2,3,3,2,2,1,2]';  
+  Humidity=[1,1,1,1,2,2,2,1,2,2,2,1,2,1]';  
+  Windy=[0,1,0,0,0,1,1,0,0,0,1,1,0,1]';  
+    
+  data=[Outlook Temperature Humidity Windy];  
+  PlayGolf=[0,0,1,1,1,0,1,0,1,1,1,1,1,0]';  
+  propertyName={'Outlook','Temperature','Humidity','Windy'};  
+  delta=0.1;  
+  decisionTreeModel=decisionTree(data,PlayGolf,propertyName,delta);  
 end
 
 function decisionTreeModel=decisionTree(data,label,propertyName,delta)    
@@ -50,7 +52,7 @@ function BuildTree(fatherNodeName,edge,data,label,propertyName,delta)
         return;  
     end  
 
-[sonIndex,BuildNode]=CalcuteNode(data,label,delta); 
+    [sonIndex,BuildNode]=CalcuteNode(data,label,delta); 
     if BuildNode  
         dataRowIndex=setdiff(1:length(propertyName),sonIndex);  
         sonNode.NodeName=propertyName(sonIndex);  
